@@ -986,7 +986,21 @@
         // Theme toggle functionality
         const themeToggle = document.getElementById('themeToggle');
         const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-        
+        const dropArea = document.getElementById('dropArea');
+        const fileInput = document.getElementById('fileInput');
+        const upscaleBtn = document.getElementById('upscaleBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const originalPreview = document.getElementById('originalPreview');
+        const upscaledPreview = document.getElementById('upscaledPreview');
+        const processingOverlay = document.getElementById('processingOverlay');
+        const originalInfo = document.getElementById('originalInfo');
+        const upscaledInfo = document.getElementById('upscaledInfo');
+        const sharpnessSlider = document.getElementById('sharpness');
+        const sharpnessValue = document.getElementById('sharpnessValue');
+        const scaleFactorSelect = document.getElementById('scaleFactor');
+        const noiseReductionSlider = document.getElementById('noiseReduction');
+        const noiseValue = document.getElementById('noiseValue');
+
         // Check for saved theme preference or use OS preference
         const currentTheme = localStorage.getItem('theme') || 
                             (prefersDarkScheme.matches ? 'dark' : 'light');
@@ -1011,11 +1025,12 @@
             localStorage.setItem('theme', theme);
         });
 
-        // AI Image Upscaler functionality (remove duplicate declarations)
-        // Variables already declared below in the performance section
-
         sharpnessSlider.addEventListener('input', () => {
             sharpnessValue.textContent = sharpnessSlider.value + '%';
+        });
+
+        noiseReductionSlider.addEventListener('input', () => {
+            noiseValue.textContent = noiseReductionSlider.value + '%';
         });
 
         // Handle drag and drop
@@ -1024,7 +1039,7 @@
         });
 
         fileInput.addEventListener('change', handleFileSelect);
-        
+
         dropArea.addEventListener('dragover', (e) => {
             e.preventDefault();
             dropArea.style.borderColor = 'var(--primary)';
@@ -1051,6 +1066,10 @@
                 handleFile(e.target.files[0]);
             }
         }
+
+        let originalImage = null;
+        let upscaledImageBlob = null;
+        let originalFileSize = 0;
 
         function handleFile(file) {
             if (!file.type.match('image.*')) {
@@ -1130,9 +1149,9 @@
         upscaleBtn.addEventListener('click', async () => {
             if (!originalImage) return;
             
-            const scaleFactor = parseInt(document.getElementById('scaleFactor').value);
-            const noiseReduction = parseInt(document.getElementById('noiseReduction').value);
-            const sharpness = parseInt(document.getElementById('sharpness').value);
+            const scaleFactor = parseInt(scaleFactorSelect.value);
+            const noiseReduction = parseInt(noiseReductionSlider.value);
+            const sharpness = parseInt(sharpnessSlider.value);
             
             try {
                 upscaledImageBlob = await simulateAIUpscaling(originalImage, scaleFactor, noiseReduction, sharpness);
@@ -1164,9 +1183,10 @@
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
+            setTimeout(() => URL.revokeObjectURL(url), 100);
         });
-        
-        // Performance monitoring for 60fps
+
+        // Performance monitoring for 60fps (optional, can be removed if not needed)
         class PerformanceMonitor {
             constructor() {
                 this.frameCount = 0;
@@ -1212,204 +1232,9 @@
         const perfMonitor = new PerformanceMonitor();
         perfMonitor.start();
 
-        // AI Upscaler functionality
-        const dropArea = document.getElementById('dropArea');
-        const fileInput = document.getElementById('fileInput');
-        const upscaleBtn = document.getElementById('upscaleBtn');
-        const downloadBtn = document.getElementById('downloadBtn');
-        const originalPreview = document.getElementById('originalPreview');
-        const upscaledPreview = document.getElementById('upscaledPreview');
-        const processingOverlay = document.getElementById('processingOverlay');
-        const scaleSlider = document.getElementById('scaleSlider');
-        const scaleValue = document.getElementById('scaleValue');
-
-        let originalImage = null;
-        let upscaledImageBlob = null;
-        let originalFileSize = 0;
-
-        // Optimized scale slider with debouncing
-        let sliderTimeout;
-        scaleSlider.addEventListener('input', (e) => {
-            clearTimeout(sliderTimeout);
-            sliderTimeout = setTimeout(() => {
-                requestAnimationFrame(() => {
-                    scaleValue.textContent = e.target.value + 'x';
-                });
-            }, 16); // ~60fps
-        });
-
-        sharpnessSlider.addEventListener('input', () => {
-            sharpnessValue.textContent = sharpnessSlider.value + '%';
-        });
-        
-        // High-performance image upscaling with Web Workers
-        class ImageUpscaler {
-            constructor() {
-                this.worker = null;
-                this.initWorker();
-            }
-
-            initWorker() {
-                const workerCode = `
-                    self.onmessage = function(e) {
-                        const { imageData, width, height, scale } = e.data;
-                        
-                        const newWidth = Math.floor(width * scale);
-                        const newHeight = Math.floor(height * scale);
-                        const newData = new Uint8ClampedArray(newWidth * newHeight * 4);
-                        
-                        // Bicubic interpolation for better quality
-                        for (let y = 0; y < newHeight; y++) {
-                            for (let x = 0; x < newWidth; x++) {
-                                const srcX = x / scale;
-                                const srcY = y / scale;
-                                
-                                const x1 = Math.floor(srcX);
-                                const y1 = Math.floor(srcY);
-                                const x2 = Math.min(x1 + 1, width - 1);
-                                const y2 = Math.min(y1 + 1, height - 1);
-                                
-                                const fx = srcX - x1;
-                                const fy = srcY - y1;
-                                
-                                // Bilinear interpolation
-                                const idx1 = (y1 * width + x1) * 4;
-                                const idx2 = (y1 * width + x2) * 4;
-                                const idx3 = (y2 * width + x1) * 4;
-                                const idx4 = (y2 * width + x2) * 4;
-                                
-                                const newIdx = (y * newWidth + x) * 4;
-                                
-                                for (let c = 0; c < 4; c++) {
-                                    const p1 = imageData[idx1 + c] * (1 - fx) + imageData[idx2 + c] * fx;
-                                    const p2 = imageData[idx3 + c] * (1 - fx) + imageData[idx4 + c] * fx;
-                                    newData[newIdx + c] = Math.round(p1 * (1 - fy) + p2 * fy);
-                                }
-                            }
-                        }
-                        
-                        self.postMessage({ upscaledData: newData, width: newWidth, height: newHeight });
-                    };
-                `;
-                
-                const blob = new Blob([workerCode], { type: 'application/javascript' });
-                this.worker = new Worker(URL.createObjectURL(blob));
-            }
-
-            async upscaleImage(image, scale) {
-                return new Promise((resolve, reject) => {
-                    const canvas = new OffscreenCanvas(image.width, image.height);
-                    const ctx = canvas.getContext('2d');
-                    
-                    ctx.drawImage(image, 0, 0);
-                    const imageData = ctx.getImageData(0, 0, image.width, image.height);
-                    
-                    this.worker.onmessage = (e) => {
-                        const { upscaledData, width, height } = e.data;
-                        
-                        const upscaledCanvas = new OffscreenCanvas(width, height);
-                        const upscaledCtx = upscaledCanvas.getContext('2d');
-                        
-                        const newImageData = new ImageData(upscaledData, width, height);
-                        upscaledCtx.putImageData(newImageData, 0, 0);
-                        
-                        upscaledCanvas.convertToBlob({ type: 'image/png' })
-                            .then(blob => resolve(blob))
-                            .catch(reject);
-                    };
-                    
-                    this.worker.onerror = reject;
-                    
-                    this.worker.postMessage({
-                        imageData: imageData.data,
-                        width: image.width,
-                        height: image.height,
-                        scale: scale
-                    });
-                });
-            }
-        }
-
-        const imageUpscaler = new ImageUpscaler();
-
-        // Upscale image with high performance
-        upscaleBtn.addEventListener('click', async () => {
-            if (!originalImage) return;
-            
-            const scale = parseFloat(scaleSlider.value);
-            
-            // Show processing overlay with smooth animation
-            requestAnimationFrame(() => {
-                processingOverlay.style.display = 'flex';
-                upscaleBtn.disabled = true;
-                upscaleBtn.textContent = 'Upscaling...';
-            });
-            
-            try {
-                upscaledImageBlob = await imageUpscaler.upscaleImage(originalImage, scale);
-                
-                const upscaledURL = URL.createObjectURL(upscaledImageBlob);
-                
-                requestAnimationFrame(() => {
-                    upscaledPreview.src = upscaledURL;
-                    downloadBtn.disabled = false;
-                    processingOverlay.style.display = 'none';
-                    upscaleBtn.disabled = false;
-                    upscaleBtn.textContent = 'Upscale Image';
-                });
-                
-            } catch (error) {
-                console.error('Error upscaling image:', error);
-                // Fallback to original method
-                fallbackUpscaling(scale);
-            }
-        });
-        
-        // Fallback upscaling method
-        async function fallbackUpscaling(scale) {
-            try {
-                upscaledImageBlob = await upscaleImage(originalImage, scale);
-                
-                const upscaledURL = URL.createObjectURL(upscaledImageBlob);
-                upscaledPreview.src = upscaledURL;
-                
-                downloadBtn.disabled = false;
-            } catch (error) {
-                alert('Failed to upscale the image. Please try another image.');
-            } finally {
-                processingOverlay.style.display = 'none';
-                upscaleBtn.disabled = false;
-                upscaleBtn.textContent = 'Upscale Image';
-            }
-        }
-
-        // Optimized download with memory cleanup
-        downloadBtn.addEventListener('click', () => {
-            if (!upscaledImageBlob) return;
-            
-            requestAnimationFrame(() => {
-                const url = URL.createObjectURL(upscaledImageBlob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'upscaled-image.png';
-                a.style.display = 'none';
-                
-                document.body.appendChild(a);
-                a.click();
-                
-                setTimeout(() => {
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
-                }, 100);
-            });
-        });
-        
-        // Memory management
+        // Clean up on unload
         window.addEventListener('beforeunload', () => {
             perfMonitor.stop();
-            if (imageUpscaler.worker) {
-                imageUpscaler.worker.terminate();
-            }
         });
     </script>
 </body>
