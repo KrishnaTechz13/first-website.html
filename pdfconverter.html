@@ -57,7 +57,7 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--body-bg);
-            color: var(--body-color);
+            color: #0b0f19; /* force darker text */
             line-height: 1.6;
             transition: background-color 0.3s, color 0.3s;
             position: relative;
@@ -140,6 +140,8 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+            position: relative;
+            z-index: 1; /* ensure above bg */
         }
 
         header {
@@ -226,6 +228,14 @@
             color: transparent;
         }
 
+        /* Stronger text color across headings and labels for visibility */
+        h1, h2, h3, h4, h5, h6, label, .preview-label, .button-group .btn, .footer-column h3 {
+            color: #0b0f19;
+        }
+        p, li, .option-group small, nav a, .ad-label {
+            color: #111827;
+        }
+
         .hero p {
             font-size: 1.2rem;
             color: var(--gray);
@@ -302,6 +312,9 @@
             padding: 30px;
             box-shadow: var(--shadow);
             margin: 40px 0;
+            position: relative;
+            z-index: 1; /* lift content above bg */
+            color: #0b0f19; /* strong contrast */
         }
 
         .upload-area {
@@ -557,6 +570,9 @@
             box-shadow: 0 6px 18px rgba(0,0,0,0.06);
             padding: 18px;
             margin-top: 10px;
+            position: relative;
+            z-index: 1;
+            color: #0b0f19;
         }
 
         .options-header {
@@ -671,6 +687,112 @@
 
         .btn.btn-outline {
             background: rgba(255,255,255,0.5);
+        }
+
+        /* Dark theme visibility overrides */
+        [data-theme="dark"] body {
+            color: #e5e7eb; /* light text */
+        }
+        [data-theme="dark"] h1,
+        [data-theme="dark"] h2,
+        [data-theme="dark"] h3,
+        [data-theme="dark"] h4,
+        [data-theme="dark"] h5,
+        [data-theme="dark"] h6,
+        [data-theme="dark"] label,
+        [data-theme="dark"] .preview-label,
+        [data-theme="dark"] .button-group .btn,
+        [data-theme="dark"] .footer-column h3 {
+            color: #e5e7eb;
+        }
+        [data-theme="dark"] p,
+        [data-theme="dark"] li,
+        [data-theme="dark"] .option-group small,
+        [data-theme="dark"] nav a,
+        [data-theme="dark"] .ad-label {
+            color: #d1d5db;
+        }
+        [data-theme="dark"] nav a:hover {
+            color: var(--primary);
+        }
+
+        [data-theme="dark"] .compressor-container,
+        [data-theme="dark"] .pdf-maker-container,
+        [data-theme="dark"] .bg-remover-container {
+            color: #e5e7eb;
+        }
+
+        [data-theme="dark"] .options-card {
+            background: #0f1320; /* matte dark */
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+            color: #e5e7eb;
+        }
+        [data-theme="dark"] .options-header .subtle {
+            color: #bbc6d3;
+        }
+
+        [data-theme="dark"] .option-group input[type="text"],
+        [data-theme="dark"] .option-group input[type="number"],
+        [data-theme="dark"] .option-group select {
+            background: #111418;
+            color: #e5e7eb;
+            border: 1px solid rgba(255,255,255,0.16);
+        }
+        [data-theme="dark"] .option-group input[type="text"]:focus,
+        [data-theme="dark"] .option-group input[type="number"]:focus,
+        [data-theme="dark"] .option-group select:focus {
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.35);
+        }
+
+        [data-theme="dark"] .option-group input[type="color"] {
+            background: #111418;
+            border: 1px solid rgba(255,255,255,0.16);
+        }
+
+        [data-theme="dark"] .slider-container input[type="range"]::-webkit-slider-thumb {
+            background: #e5e7eb;
+            border: 2px solid var(--primary);
+        }
+
+        [data-theme="dark"] .btn.btn-outline {
+            background: rgba(255,255,255,0.06);
+            color: #e5e7eb;
+            border-color: rgba(255,255,255,0.16);
+        }
+
+        /* Dark: make hero title fully readable */
+        [data-theme="dark"] .hero h1 {
+            background: none;
+            -webkit-background-clip: initial;
+            background-clip: initial;
+            color: #e5e7eb;
+        }
+
+        /* Dark: link and footer contrast */
+        [data-theme="dark"] .footer-column a {
+            color: #cbd5e1;
+        }
+        [data-theme="dark"] .footer-column a:hover {
+            color: #ffffff;
+        }
+
+        /* Dark: input placeholder contrast */
+        [data-theme="dark"] .option-group input::placeholder,
+        [data-theme="dark"] .option-group textarea::placeholder {
+            color: #9ca3af;
+        }
+
+        /* Dark: preview/thumb text clarity */
+        [data-theme="dark"] .pdf-thumb {
+            background: #161a23;
+            border-color: rgba(255,255,255,0.08);
+            color: #e5e7eb;
+        }
+        [data-theme="dark"] .thumb-actions .thumb-btn {
+            border-color: rgba(255,255,255,0.16);
+            color: #e5e7eb;
+            background: rgba(255,255,255,0.04);
         }
 
         .pdf-page-preview {
