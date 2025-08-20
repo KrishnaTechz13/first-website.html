@@ -19,8 +19,3 @@ A collection of powerful browser-based image processing tools that work complete
 - Canvas API
 - jsPDF library
 
-## Getting Started
-
-1. Clone the repository:
-```bash
-git clone https://github.com/your-username/your-image-tools.git
