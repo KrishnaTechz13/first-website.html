@@ -11,6 +11,7 @@
     <meta property="og:type" content="website">
     <title>Images to PDF Converter - ImageTools</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link href="https://fonts.cdnfonts.com/css/elianto" rel="stylesheet">
     <style>
         :root {
             --primary: #4361ee;
@@ -135,6 +136,12 @@
             }
         }
 
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         .container {
             width: 100%;
             max-width: 1200px;
@@ -163,21 +170,32 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--primary);
+            gap: 12px;
+            text-decoration: none;
         }
 
         .logo-icon {
-            width: 32px;
-            height: 32px;
-            background: var(--primary);
-            border-radius: 8px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
+            border-radius: 8px;
+            background: #2B6BF3;
             color: white;
+        }
+
+        .logo span {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2B6BF3;
+            letter-spacing: -0.02em;
+        }
+
+        /* Dark theme adjustment */
+        [data-theme="dark"] .logo span {
+            color: #fff;
         }
 
         nav ul {
@@ -219,13 +237,117 @@
             margin: 0 auto;
         }
 
-        .hero h1 {
-            font-size: 2.8rem;
-            margin-bottom: 20px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        .hero-titles {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-titles .subtitle {
+            font-family: 'Elianto', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            background: linear-gradient(
+                90deg,
+                #2B6BF3,
+                #7209b7,
+                #4361ee,
+                #06d6a0,
+                #2B6BF3
+            );
+            background-size: 300% 100%;
+            background-position: 0% 50%;
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            -webkit-text-fill-color: transparent;
+            animation: gradientMove 5s ease-in-out infinite;
+        }
+
+        .hero-titles .subtitle::after {
+            content: '';
+            display: block;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(
+                90deg,
+                #2B6BF3,
+                #7209b7,
+                #4361ee,
+                #06d6a0,
+                #2B6BF3
+            );
+            background-size: 300% 100%;
+            background-position: 0% 50%;
+            border-radius: 4px;
+            animation: gradientMove 5s ease-in-out infinite;
+        }
+
+        /* Adjust the main heading margin for better spacing */
+        .hero h1 {
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-titles .subtitle {
+                font-size: 1.8rem;
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Elianto', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            line-height: 1.2;
+            background: linear-gradient(
+                90deg,
+                #2B6BF3,
+                #7209b7,
+                #4361ee,
+                #06d6a0,
+                #2B6BF3
+            );
+            background-size: 300% 100%;
+            background-position: 0% 50%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            animation: gradientMove 5s ease-in-out infinite;
+        }
+
+        .hero h1::after {
+            content: '';
+            display: block;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(
+                90deg,
+                #2B6BF3,
+                #7209b7,
+                #4361ee,
+                #06d6a0,
+                #2B6BF3
+            );
+            background-size: 300% 100%;
+            background-position: 0% 50%;
+            border-radius: 4px;
+            animation: gradientMove 5s ease-in-out infinite;
         }
 
         /* Stronger text color across headings and labels for visibility */
@@ -970,9 +1092,14 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <div class="logo-icon">IT</div>
-                    <span>ImageTools</span>
+                    <div class="logo-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <rect width="32" height="32" rx="8" fill="#2B6BF3"/>
+                            <path d="M8 12h16v8H8z" fill="white"/>
+                            <circle cx="16" cy="16" r="4" fill="#2B6BF3"/>
+                        </svg>
                     </div>
+                    <span>Your Image Tools</span>
                 </div>
                 <nav>
                     <ul>
@@ -988,7 +1115,10 @@
 
     <main class="container">
         <section class="hero" id="home">
-            <h1>Images to PDF Converter</h1>
+            <div class="hero-titles">
+                <h2 class="subtitle">Powerful PDF Maker</h2>
+                <h1>Images to PDF Converter</h1>
+            </div>
             <p>Combine multiple images into a single PDF securely in your browser. Fast, private, and free.</p>
             <a href="#pdf-maker" class="cta-button">Start Converting</a>
         </section>
@@ -999,8 +1129,8 @@
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADMOB_ID" crossorigin="anonymous"></script>
             <ins class="adsbygoogle"
                  style="display:block"
-                 data-ad-client="ca-pub-YOUR_ADMOB_ID"
-                 data-ad-slot="YOUR_BANNER_SLOT"
+                 data-ad-client="ca-app-pub-3075022732059294/5493483684"
+                 data-ad-slot="5493483684"
                  data-ad-format="auto"
                  data-full-width-responsive="true"></ins>
             <script>
@@ -1014,8 +1144,8 @@
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADMOB_ID" crossorigin="anonymous"></script>
             <ins class="adsbygoogle"
                  style="display:block"
-                 data-ad-client="ca-pub-YOUR_ADMOB_ID"
-                 data-ad-slot="YOUR_RECTANGLE_SLOT"
+                 data-ad-client="ca-app-pub-3075022732059294/5493483684"
+                 data-ad-slot="5493483684"
                  data-ad-format="rectangle"></ins>
             <script>
                  (adsbygoogle = window.adsbygoogle || []).push({});
@@ -1123,8 +1253,13 @@
                  style="display:block"
                  data-ad-format="fluid"
                  data-ad-layout-key="-gw-3+1f-3d+2z"
-                 data-ad-client="ca-pub-YOUR_ADSENSE_ID"
-                 data-ad-slot="YOUR_AD_SLOT"></ins>
+                 data-ad-client="            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-3075022732059294"
+                 data-ad-slot="5493483684"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>"
+                data-ad-slot="5493483684"></ins>></ins>
             <script>
                  (adsbygoogle = window.adsbygoogle || []).push({});
             </script>

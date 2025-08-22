@@ -6,7 +6,8 @@
     <meta name="description" content="Free AI-powered image upscaling tool. Enhance image resolution using advanced AI technology directly in your browser with no uploads required.">
     <meta name="keywords" content="AI image upscaler, image enhancer, resolution increase, free image tool, online image upscaling">
     <title>AI Image Upscaler - Enhance Image Resolution | ImageTools</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+    <link href="https://fonts.cdnfonts.com/css/elianto" rel="stylesheet">
     <style>
         :root {
             --primary: #4361ee;
@@ -157,21 +158,55 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--primary);
+            gap: 12px;
+            text-decoration: none;
+            position: relative;
         }
 
         .logo-icon {
-            width: 32px;
-            height: 32px;
-            background: var(--primary);
-            border-radius: 8px;
+            width: 48px;
+            height: 48px;
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
+            border-radius: 12px;
+            background: linear-gradient(135deg, 
+                rgba(43, 107, 243, 0.1),
+                rgba(30, 75, 210, 0.1));
+            backdrop-filter: blur(8px);
+            border: 2px solid rgba(43, 107, 243, 0.2);
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 2px 4px rgba(43, 107, 243, 0.2));
+        }
+
+        .logo-icon:hover {
+            transform: translateY(-1px);
+            filter: drop-shadow(0 4px 8px rgba(43, 107, 243, 0.3));
+            border-color: rgba(43, 107, 243, 0.4);
+        }
+
+        .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #2B6BF3, #1E4BD2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+        }
+
+        /* Dark theme adjustments */
+        [data-theme="dark"] .logo-icon {
+            background: linear-gradient(135deg, 
+                rgba(43, 107, 243, 0.15),
+                rgba(30, 75, 210, 0.15));
+            border-color: rgba(43, 107, 243, 0.25);
+        }
+
+        [data-theme="dark"] .logo-text {
+            filter: brightness(1.2);
         }
 
         nav ul {
@@ -213,13 +248,68 @@
             margin: 0 auto;
         }
 
-        .hero h1 {
+        .hero h1, .hero > h1 {
+            font-family: 'Elianto', sans-serif !important;
             font-size: 2.8rem;
-            margin-bottom: 20px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, 
+                #2B6BF3 0%,
+                #7209b7 25%,
+                #4361ee 50%,
+                #06d6a0 75%,
+                #2B6BF3 100%);
+            background-size: 200% 100%;
+            animation: moveGradient 8s linear infinite;
             -webkit-background-clip: text;
             background-clip: text;
-            color: transparent;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            line-height: 1.2;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 20px;
+        }
+
+        .hero h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                #2B6BF3 0%,
+                #7209b7 25%,
+                #4361ee 50%,
+                #06d6a0 75%,
+                #2B6BF3 100%);
+            border-radius: 2px;
+            background-size: 200% 100%;
+            animation: moveGradient 8s linear infinite;
+        }
+
+        @keyframes moveGradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 200% 50%;
+            }
+        }
+
+        /* Add responsive styles */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
         }
 
         .hero p {
@@ -749,7 +839,7 @@
         }
     </style>
     <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-your-publisher-id" crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-app-pub-3075022732059294/9955472876" crossorigin="anonymous"></script>
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
@@ -758,17 +848,36 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="logo">
-                    <div class="logo-icon">IT</div>
-                    <span>ImageTools</span>
-                </div>
+                <a href="first website.html" class="logo">
+                    <div class="logo-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#2B6BF3"/>
+                                    <stop offset="100%" style="stop-color:#1E4BD2"/>
+                                </linearGradient>
+                            </defs>
+                            <!-- Camera body -->
+                            <rect x="4" y="8" width="24" height="16" rx="3" fill="url(#logoGradient)"/>
+                            <!-- Lens -->
+                            <circle cx="16" cy="16" r="6" fill="#1A3FA0"/>
+                            <circle cx="16" cy="16" r="4" fill="#153180"/>
+                            <!-- Flash -->
+                            <rect x="20" y="10" width="4" height="2" rx="1" fill="#FFFFFF" opacity="0.9"/>
+                            <!-- White spots/reflections -->
+                            <circle cx="8" cy="11" r="1" fill="#FFFFFF" opacity="0.7"/>
+                            <circle cx="24" cy="21" r="1.5" fill="#FFFFFF" opacity="0.5"/>
+                            <circle cx="16" cy="16" r="2" fill="#FFFFFF" opacity="0.2"/>
+                        </svg>
+                    </div>
+                    <span class="logo-text">Your Image Tools</span>
+                </a>
                 <nav>
                     <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#tools">Tools</a></li>
-                        <li><a href="#blog">Blog</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="first website.html">Home</a></li>
+                        <li><a href="first website.html#tools">Tools</a></li>
+                        <li><a href="first website.html#about">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </nav>
                 <button class="theme-toggle" id="themeToggle">🌙</button>
@@ -783,13 +892,12 @@
             <a href="#upscaler" class="cta-button">Upscale Image Now</a>
         </section>
 
-        <!-- Ad Space -->
+        <!-- AdSense Banner Ad (Top of page) -->
         <div class="ad-container">
-            <!-- Google AdSense Ad Unit -->
             <ins class="adsbygoogle"
                  style="display:block"
-                 data-ad-client="ca-pub-your-publisher-id"
-                 data-ad-slot="your-ad-slot-id"
+                 data-ad-client="ca-app-pub-3075022732059294"
+                 data-ad-slot="9025534585"  <!-- Banner ad slot -->
                  data-ad-format="auto"
                  data-full-width-responsive="true"></ins>
             <script>
@@ -805,7 +913,7 @@
                 <!-- AdMob (placeholder via web ad unit). Replace data-ad-client and data-ad-slot with your values. -->
                 <ins class="adsbygoogle"
                      style="display:block"
-                     data-ad-client="ca-pub-your-publisher-id"
+                     data-ad-client="ca-app-pub-3075022732059294"
                      data-ad-slot="your-admob-slot-id"
                      data-ad-format="auto"
                      data-full-width-responsive="true"></ins>
@@ -815,13 +923,12 @@
             </div>
         </section>
 
-        <!-- Ad Space -->
+        <!-- AdSense Square Ad (Middle of page) -->
         <div class="ad-container">
-            <!-- Google AdSense Ad Unit -->
             <ins class="adsbygoogle"
                  style="display:block"
-                 data-ad-client="ca-pub-your-publisher-id"
-                 data-ad-slot="your-ad-slot-id-2"
+                 data-ad-client="ca-app-pub-3075022732059294"
+                 data-ad-slot="9983393036"  <!-- Square ad slot -->
                  data-ad-format="auto"
                  data-full-width-responsive="true"></ins>
             <script>
@@ -901,13 +1008,13 @@
             </div>
         </section>
 
-        <!-- Ad Space -->
+        <!-- AdSense Horizontal Ad (Bottom of page) -->
         <div class="ad-container">
             <!-- Google AdSense Ad Unit -->
             <ins class="adsbygoogle"
                  style="display:block"
-                 data-ad-client="ca-pub-your-publisher-id"
-                 data-ad-slot="your-ad-slot-id-3"
+                 data-ad-client="ca-app-pub-3075022732059294/9955472876"
+                 data-ad-slot="9025534585"  <!-- Banner ad slot -->
                  data-ad-format="auto"
                  data-full-width-responsive="true"></ins>
             <script>

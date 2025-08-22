@@ -8,6 +8,7 @@
     <meta name="keywords" content="background remover, remove bg, transparent background, image editing, free online tool">
     <title>Background Remover - Your Image Tools | Free Online Image Processing</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link href="https://fonts.cdnfonts.com/css/elianto" rel="stylesheet">
     <style>
         :root {
             --primary: #4361ee;
@@ -211,12 +212,67 @@
         }
 
         .hero h1 {
+            font-family: 'Elianto', sans-serif;
             font-size: 2.8rem;
-            margin-bottom: 20px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, 
+                #2B6BF3 0%,
+                #7209b7 25%,
+                #4361ee 50%,
+                #06d6a0 75%,
+                #2B6BF3 100%);
+            background-size: 200% 100%;
+            animation: moveGradient 8s linear infinite;
             -webkit-background-clip: text;
             background-clip: text;
-            color: transparent;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            line-height: 1.2;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 20px;
+        }
+
+        .hero h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                #2B6BF3 0%,
+                #7209b7 25%,
+                #4361ee 50%,
+                #06d6a0 75%,
+                #2B6BF3 100%);
+            border-radius: 2px;
+            background-size: 200% 100%;
+            animation: moveGradient 8s linear infinite;
+        }
+
+        @keyframes moveGradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 200% 50%;
+            }
+        }
+
+        /* Add responsive styles */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
         }
 
         .hero p {
@@ -559,17 +615,36 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="logo">
-                    <div class="logo-icon">IT</div>
-                    <span>ImageTools</span>
-                </div>
+                <a href="first website.html" class="logo">
+                    <div class="logo-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#2B6BF3"/>
+                                    <stop offset="100%" style="stop-color:#1E4BD2"/>
+                                </linearGradient>
+                            </defs>
+                            <!-- Main camera body -->
+                            <rect x="4" y="8" width="24" height="16" rx="3" fill="url(#logoGradient)"/>
+                            <!-- Lens -->
+                            <circle cx="16" cy="16" r="6" fill="#1A3FA0"/>
+                            <circle cx="16" cy="16" r="4" fill="#153180"/>
+                            <!-- Flash -->
+                            <rect x="20" y="10" width="4" height="2" rx="1" fill="#FFFFFF" opacity="0.9"/>
+                            <!-- White spots/reflections -->
+                            <circle cx="8" cy="11" r="1" fill="#FFFFFF" opacity="0.7"/>
+                            <circle cx="24" cy="21" r="1.5" fill="#FFFFFF" opacity="0.5"/>
+                            <circle cx="16" cy="16" r="2" fill="#FFFFFF" opacity="0.2"/>
+                        </svg>
+                    </div>
+                    <span class="logo-text">Your Image Tools</span>
+                </a>
                 <nav>
                     <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#tools">Tools</a></li>
-                        <li><a href="#blog">Blog</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="first website.html">Home</a></li>
+                        <li><a href="first website.html#tools">Tools</a></li>
+                        <li><a href="first website.html#about">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </nav>
                 <button class="theme-toggle" id="themeToggle">🌙</button>
@@ -587,11 +662,11 @@
         <!-- Ad Space -->
         <div class="ad-container">
             <!-- Google AdSense Ad Unit -->
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-app-pub-3075022732059294/8778122574" crossorigin="anonymous"></script>
             <ins class="adsbygoogle"
                  style="display:block"
-                 data-ad-client="ca-pub-YOUR_ADSENSE_ID"
-                 data-ad-slot="YOUR_AD_SLOT"
+                 data-ad-client="ca-app-pub-3075022732059294/8778122574"
+                 data-ad-slot="9025534585"
                  data-ad-format="auto"
                  data-full-width-responsive="true"></ins>
             <script>
@@ -606,7 +681,7 @@
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-YOUR_ADMOB_ID"
-                 data-ad-slot="YOUR_BANNER_SLOT"
+                 data-ad-slot="9025534585"
                  data-ad-format="auto"
                  data-full-width-responsive="true"></ins>
             <script>
@@ -617,11 +692,11 @@
         <!-- AdMob Medium Rectangle Ad -->
         <div class="ad-container rectangle-ad">
             <div class="ad-label">Advertisement</div>
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADMOB_ID" crossorigin="anonymous"></script>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-app-pub-3075022732059294/8778122574" crossorigin="anonymous"></script>
             <ins class="adsbygoogle"
                  style="display:block"
-                 data-ad-client="ca-pub-YOUR_ADMOB_ID"
-                 data-ad-slot="YOUR_RECTANGLE_SLOT"
+                 data-ad-client="ca-app-pub-3075022732059294/8778122574"
+                 data-ad-slot="9983393036"
                  data-ad-format="rectangle"></ins>
             <script>
                  (adsbygoogle = window.adsbygoogle || []).push({});
@@ -631,11 +706,11 @@
         <!-- Ad Space -->
         <div class="ad-container">
             <!-- Google AdSense Ad Unit -->
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-app-pub-3075022732059294/8778122574" crossorigin="anonymous"></script>
             <ins class="adsbygoogle"
                  style="display:block"
-                 data-ad-client="ca-pub-YOUR_ADSENSE_ID"
-                 data-ad-slot="YOUR_AD_SLOT"
+                 data-ad-client="ca-app-pub-3075022732059294/8778122574"
+                 data-ad-slot="9025534585"
                  data-ad-format="auto"
                  data-full-width-responsive="true"></ins>
             <script>
@@ -712,11 +787,11 @@
         <!-- Ad Space -->
         <div class="ad-container">
             <!-- Google AdSense Ad Unit -->
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-app-pub-3075022732059294/8778122574" crossorigin="anonymous"></script>
             <ins class="adsbygoogle"
                  style="display:block"
-                 data-ad-client="ca-pub-YOUR_ADSENSE_ID"
-                 data-ad-slot="YOUR_AD_SLOT"
+                 data-ad-client="ca-app-pub-3075022732059294/8778122574"
+                 data-ad-slot="9025534585"
                  data-ad-format="auto"
                  data-full-width-responsive="true"></ins>
             <script>
